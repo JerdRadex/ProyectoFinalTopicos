@@ -1,0 +1,444 @@
+-- phpMyAdmin SQL Dump
+-- version 4.1.14
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 30-11-2016 a las 15:35:25
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `dbz`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ep`
+--
+
+CREATE TABLE IF NOT EXISTS `ep` (
+  `C` varchar(90) DEFAULT NULL,
+  `EP` varchar(90) NOT NULL,
+  `semana1` varchar(20) DEFAULT NULL,
+  `semana2` varchar(20) DEFAULT NULL,
+  `semana3` varchar(20) DEFAULT NULL,
+  `semana4` varchar(20) DEFAULT NULL,
+  `semana5` varchar(20) DEFAULT NULL,
+  `semana6` varchar(20) DEFAULT NULL,
+  `semana7` varchar(20) DEFAULT NULL,
+  `semana8` varchar(20) DEFAULT NULL,
+  `semana9` varchar(20) DEFAULT NULL,
+  `semana10` varchar(20) DEFAULT NULL,
+  `semana11` varchar(20) DEFAULT NULL,
+  `semana12` varchar(20) DEFAULT NULL,
+  `semana13` varchar(20) DEFAULT NULL,
+  `semana14` varchar(20) DEFAULT NULL,
+  `semana15` varchar(20) DEFAULT NULL,
+  `semana16` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`EP`),
+  KEY `FK_unidad_C` (`C`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ep`
+--
+
+INSERT INTO `ep` (`C`, `EP`, `semana1`, `semana2`, `semana3`, `semana4`, `semana5`, `semana6`, `semana7`, `semana8`, `semana9`, `semana10`, `semana11`, `semana12`, `semana13`, `semana14`, `semana15`, `semana16`) VALUES
+('1112', '2bc', '11', '33', '55', '77', '79', 'e', 't', 't', 'u', 'a', 't', 'y', 'j', 'u', 'a', 'ed'),
+('111111', '87', '', '', '', '', '', '', '', '', '', '', '', '', 'el v', '', '', ''),
+('1111', 'D', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37'),
+('111111', 'g', '', '', '', '', '', '', '', '', '', '', '', '', 'f', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `er`
+--
+
+CREATE TABLE IF NOT EXISTS `er` (
+  `Cl` varchar(90) DEFAULT NULL,
+  `ER` varchar(90) NOT NULL,
+  `semana1` varchar(20) DEFAULT NULL,
+  `semana2` varchar(20) DEFAULT NULL,
+  `semana3` varchar(20) DEFAULT NULL,
+  `semana4` varchar(20) DEFAULT NULL,
+  `semana5` varchar(20) DEFAULT NULL,
+  `semana6` varchar(20) DEFAULT NULL,
+  `semana7` varchar(20) DEFAULT NULL,
+  `semana8` varchar(20) DEFAULT NULL,
+  `semana9` varchar(20) DEFAULT NULL,
+  `semana10` varchar(20) DEFAULT NULL,
+  `semana11` varchar(20) DEFAULT NULL,
+  `semana12` varchar(20) DEFAULT NULL,
+  `semana13` varchar(20) DEFAULT NULL,
+  `semana14` varchar(20) DEFAULT NULL,
+  `semana15` varchar(20) DEFAULT NULL,
+  `semana16` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`ER`),
+  KEY `FK_unidad_Cl` (`Cl`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `er`
+--
+
+INSERT INTO `er` (`Cl`, `ER`, `semana1`, `semana2`, `semana3`, `semana4`, `semana5`, `semana6`, `semana7`, `semana8`, `semana9`, `semana10`, `semana11`, `semana12`, `semana13`, `semana14`, `semana15`, `semana16`) VALUES
+('1112', '45', '22', '44', '66', '78', '80', 'rt', 't', 't', 'u', 't', 'y', 'h', 'k', 'u', 'v', 'eee'),
+('111111', '8796', '', '', '', '', '', '', '', '', '', 'vd ', '', '', '', '', '', ''),
+('1111', 'E', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53'),
+('111111', 'h', '', '', '', '', '', '', '', '', '', '', '', '', 'd', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fs`
+--
+
+CREATE TABLE IF NOT EXISTS `fs` (
+  `Cla` varchar(90) DEFAULT NULL,
+  `ER` varchar(90) NOT NULL,
+  `semana1ala5` varchar(90) DEFAULT NULL,
+  `semana10ala16` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`ER`),
+  KEY `FK_unidad_Cla` (`Cla`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `fs`
+--
+
+INSERT INTO `fs` (`Cla`, `ER`, `semana1ala5`, `semana10ala16`) VALUES
+('1112', '6f', '1', '2'),
+('1111', 'F', '54', '55'),
+('111111', 'i', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materia`
+--
+
+CREATE TABLE IF NOT EXISTS `materia` (
+  `ClaveMateria` varchar(90) NOT NULL,
+  `materia` varchar(90) DEFAULT NULL,
+  `catedratico` varchar(100) DEFAULT NULL,
+  `Nivel` varchar(90) DEFAULT NULL,
+  `Grupo` varchar(90) DEFAULT NULL,
+  `lunesInicio` varchar(90) DEFAULT NULL,
+  `lunesFin` varchar(90) DEFAULT NULL,
+  `martesInicio` varchar(90) DEFAULT NULL,
+  `martesFin` varchar(90) DEFAULT NULL,
+  `miercolesInicio` varchar(90) DEFAULT NULL,
+  `miercolesFin` varchar(90) DEFAULT NULL,
+  `juevesInicio` varchar(90) DEFAULT NULL,
+  `juevesFin` varchar(90) DEFAULT NULL,
+  `viernesInicio` varchar(90) DEFAULT NULL,
+  `viernesFin` varchar(90) DEFAULT NULL,
+  `totalEstudiantes` varchar(90) DEFAULT NULL,
+  `UnidadesEvaluadasHastaLaFecha` varchar(90) DEFAULT NULL,
+  `aprobados` varchar(90) DEFAULT NULL,
+  `reprobados` varchar(90) DEFAULT NULL,
+  `numeroEstudiantesNoAsisten` varchar(90) DEFAULT NULL,
+  `numeroEstudiantesNoAsisten1` varchar(90) DEFAULT NULL,
+  `carrera` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`ClaveMateria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `materia`
+--
+
+INSERT INTO `materia` (`ClaveMateria`, `materia`, `catedratico`, `Nivel`, `Grupo`, `lunesInicio`, `lunesFin`, `martesInicio`, `martesFin`, `miercolesInicio`, `miercolesFin`, `juevesInicio`, `juevesFin`, `viernesInicio`, `viernesFin`, `totalEstudiantes`, `UnidadesEvaluadasHastaLaFecha`, `aprobados`, `reprobados`, `numeroEstudiantesNoAsisten`, `numeroEstudiantesNoAsisten1`, `carrera`) VALUES
+('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('1111', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('111111', 'calculo', 'Elias', 'ing', '23', '23', ',fl`b', '', '', 'urnv', 'mfia', '', '', '', '', '23', '34', '78', '90', '75', NULL, 'isc'),
+('1112', 'Tópicos Avanzados de Programación', 'Laura Juarez Guerra', 'Licenciatura 2', 'vi', '8:40', '10:30', '2', '3', '7:00', '8:40', '4', '5', '7:50', '8:40', '45', '400', '15', '30', '5', NULL, 'otro'),
+('1114', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('11155', 'Desarrollo Sust', 'Roxana', 'lic', '67', '4', '5', '', '', '5', '6', '', '', '6', '6', '43', '5', '56', '64', '13', NULL, 'isc'),
+('1116', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('113', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('1234', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('2', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('3', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, ''),
+('5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `practica`
+--
+
+CREATE TABLE IF NOT EXISTS `practica` (
+  `nombrePractica` varchar(90) NOT NULL,
+  `ClaveMa` varchar(90) DEFAULT NULL,
+  `unidad` varchar(90) DEFAULT NULL,
+  `fechaProgramada` varchar(90) DEFAULT NULL,
+  `fechaRegistrada` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`nombrePractica`),
+  KEY `FK_practica_ClaveMa` (`ClaveMa`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `practica`
+--
+
+INSERT INTO `practica` (`nombrePractica`, `ClaveMa`, `unidad`, `fechaProgramada`, `fechaRegistrada`) VALUES
+('234', '1111', '54', '81', '100'),
+('arreglos', '1112', '3', '11-12-90', '15-12-90'),
+('el', '1111', '34', '45', '78'),
+('interfaz grafica', '1112', '4', '11-11-90', '18-11-90'),
+('metropolitano', '11155', '4', '34', '89'),
+('visita al bicentenario', '11155', '3', '34', '49'),
+('xcu,icx.ia4xci', '111111', 'ce4xi,ñi4c', 'gj,eñ.xcg', ',jcgx.ñ9');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tema`
+--
+
+CREATE TABLE IF NOT EXISTS `tema` (
+  `nombreTema` varchar(90) NOT NULL,
+  `ClaveM` varchar(90) DEFAULT NULL,
+  `hrsProgramadas` varchar(90) DEFAULT NULL,
+  `inicioProgramado` varchar(90) DEFAULT NULL,
+  `finProgramado` varchar(90) DEFAULT NULL,
+  `avanceProgramado` varchar(90) DEFAULT NULL,
+  `hrsReales` varchar(90) DEFAULT NULL,
+  `inicioReal` varchar(90) DEFAULT NULL,
+  `finReal` varchar(90) DEFAULT NULL,
+  `avanceReal` varchar(90) DEFAULT NULL,
+  `fecha` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`nombreTema`),
+  KEY `FK_Tema_ClaveM` (`ClaveM`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tema`
+--
+
+INSERT INTO `tema` (`nombreTema`, `ClaveM`, `hrsProgramadas`, `inicioProgramado`, `finProgramado`, `avanceProgramado`, `hrsReales`, `inicioReal`, `finReal`, `avanceReal`, `fecha`) VALUES
+('base de datos', '1111', '1', '2', '23', '3', '3', '5', '6', '6', '6'),
+('calculo', '1111', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'),
+('componentes ', '1112', '9', '2', '7', '20%', '15', '10', '5', '80%', '01/01/1991'),
+('hilos', '1112', '5', '2', '3', '30%', '7', '4', '3', '50%', '12/11/1990'),
+('topicos', '1111', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tp`
+--
+
+CREATE TABLE IF NOT EXISTS `tp` (
+  `Clave` varchar(90) DEFAULT NULL,
+  `TP` varchar(90) NOT NULL,
+  `semana1` varchar(20) DEFAULT NULL,
+  `semana2` varchar(20) DEFAULT NULL,
+  `semana3` varchar(20) DEFAULT NULL,
+  `semana4` varchar(20) DEFAULT NULL,
+  `semana5` varchar(20) DEFAULT NULL,
+  `semana6` varchar(20) DEFAULT NULL,
+  `semana7` varchar(20) DEFAULT NULL,
+  `semana8` varchar(20) DEFAULT NULL,
+  `semana9` varchar(20) DEFAULT NULL,
+  `semana10` varchar(20) DEFAULT NULL,
+  `semana11` varchar(20) DEFAULT NULL,
+  `semana12` varchar(20) DEFAULT NULL,
+  `semana13` varchar(20) DEFAULT NULL,
+  `semana14` varchar(20) DEFAULT NULL,
+  `semana15` varchar(20) DEFAULT NULL,
+  `semana16` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`TP`),
+  KEY `FK_unidad_Clave` (`Clave`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tp`
+--
+
+INSERT INTO `tp` (`Clave`, `TP`, `semana1`, `semana2`, `semana3`, `semana4`, `semana5`, `semana6`, `semana7`, `semana8`, `semana9`, `semana10`, `semana11`, `semana12`, `semana13`, `semana14`, `semana15`, `semana16`) VALUES
+('111111', '23', '', '', '', '', '', '', '', '', '', '', '', '', 'evl ', '', '', ''),
+('1112', '2bc', '1', '2', '3', '4', '5', '6', 'bbb', '8', 'u', '9', '10', '11', '12', '13', '666', '15'),
+('1111', 'B', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5'),
+('111111', 'e', '', '', '', '', '', '', '', '', '', '', '', '', 'v', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tr`
+--
+
+CREATE TABLE IF NOT EXISTS `tr` (
+  `Clav` varchar(90) DEFAULT NULL,
+  `TR` varchar(90) NOT NULL,
+  `semana1` varchar(20) DEFAULT NULL,
+  `semana2` varchar(20) DEFAULT NULL,
+  `semana3` varchar(20) DEFAULT NULL,
+  `semana4` varchar(20) DEFAULT NULL,
+  `semana5` varchar(20) DEFAULT NULL,
+  `semana6` varchar(20) DEFAULT NULL,
+  `semana7` varchar(20) DEFAULT NULL,
+  `semana8` varchar(20) DEFAULT NULL,
+  `semana9` varchar(20) DEFAULT NULL,
+  `semana10` varchar(20) DEFAULT NULL,
+  `semana11` varchar(20) DEFAULT NULL,
+  `semana12` varchar(20) DEFAULT NULL,
+  `semana13` varchar(20) DEFAULT NULL,
+  `semana14` varchar(20) DEFAULT NULL,
+  `semana15` varchar(20) DEFAULT NULL,
+  `semana16` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`TR`),
+  KEY `FK_unidad_Clav` (`Clav`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tr`
+--
+
+INSERT INTO `tr` (`Clav`, `TR`, `semana1`, `semana2`, `semana3`, `semana4`, `semana5`, `semana6`, `semana7`, `semana8`, `semana9`, `semana10`, `semana11`, `semana12`, `semana13`, `semana14`, `semana15`, `semana16`) VALUES
+('1112', '2bc', 'z', 'x', 'w', 'v', 'u', 't', 's', 'r', 'u', 'q', 'p', 'o', 'n', 'm', 'l', 'k'),
+('1111', 'C', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21'),
+('111111', 'd3o', '', '', '', '', '', '', '', '', 'kmd', '', '', '', '', '', '', ''),
+('111111', 'f', '', '', '', '', '', '', '', '', '', '', '', '', 'f', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `unidad`
+--
+
+CREATE TABLE IF NOT EXISTS `unidad` (
+  `ClaveMate` varchar(90) DEFAULT NULL,
+  `unidad` varchar(90) NOT NULL,
+  `semana1` varchar(20) DEFAULT NULL,
+  `semana2` varchar(20) DEFAULT NULL,
+  `semana3` varchar(20) DEFAULT NULL,
+  `semana4` varchar(20) DEFAULT NULL,
+  `semana5` varchar(20) DEFAULT NULL,
+  `semana6` varchar(20) DEFAULT NULL,
+  `semana7` varchar(20) DEFAULT NULL,
+  `semana8` varchar(20) DEFAULT NULL,
+  `semana9` varchar(20) DEFAULT NULL,
+  `semana10` varchar(20) DEFAULT NULL,
+  `semana11` varchar(20) DEFAULT NULL,
+  `semana12` varchar(20) DEFAULT NULL,
+  `semana13` varchar(20) DEFAULT NULL,
+  `semana14` varchar(20) DEFAULT NULL,
+  `semana15` varchar(20) DEFAULT NULL,
+  `semana16` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`unidad`),
+  KEY `FK_unidad_ClaveMate` (`ClaveMate`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `unidad`
+--
+
+INSERT INTO `unidad` (`ClaveMate`, `unidad`, `semana1`, `semana2`, `semana3`, `semana4`, `semana5`, `semana6`, `semana7`, `semana8`, `semana9`, `semana10`, `semana11`, `semana12`, `semana13`, `semana14`, `semana15`, `semana16`) VALUES
+('111111', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'elv ', ''),
+('1111', 'A', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'),
+('111111', 'd', '', '', '', '', '', '', '', '', '', '', '', '', 'f', '', '', ''),
+('1112', 'xxx', 'a', 'b', 'xxxx', 'd', 'e', 'r', 't', 'y', 'u', 'k', 'l', 'm', 'n', 'o', 'p', 'q');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `visitas`
+--
+
+CREATE TABLE IF NOT EXISTS `visitas` (
+  `nombreEmpresa` varchar(90) NOT NULL,
+  `unidadTematicaRegistrada` varchar(90) DEFAULT NULL,
+  `ClaveMat` varchar(90) DEFAULT NULL,
+  `fechaProgramada` varchar(90) DEFAULT NULL,
+  `fechaRealizada` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`nombreEmpresa`),
+  KEY `FK_visitas_ClaveMat` (`ClaveMat`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `visitas`
+--
+
+INSERT INTO `visitas` (`nombreEmpresa`, `unidadTematicaRegistrada`, `ClaveMat`, `fechaProgramada`, `fechaRealizada`) VALUES
+('coppel', 'adm de informacion', '1112', '18-08-92', '20-08-92'),
+('ecoce', 'vectores', '11155', '783', '984'),
+('ecosistema', 'ambiente', '11155', '789', '567'),
+('famsa', '234', '1111', '3', '45'),
+('femsa', '2', '1111', '3', '4'),
+('soriana', 'adm de base de datos', '1112', '12-05-93', '12-05-93'),
+('walmart', '1', '1111', '2', '3');
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ep`
+--
+ALTER TABLE `ep`
+  ADD CONSTRAINT `FK_unidad_C` FOREIGN KEY (`C`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `er`
+--
+ALTER TABLE `er`
+  ADD CONSTRAINT `FK_unidad_Cl` FOREIGN KEY (`Cl`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `fs`
+--
+ALTER TABLE `fs`
+  ADD CONSTRAINT `FK_unidad_Cla` FOREIGN KEY (`Cla`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `practica`
+--
+ALTER TABLE `practica`
+  ADD CONSTRAINT `FK_practica_ClaveMa` FOREIGN KEY (`ClaveMa`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `tema`
+--
+ALTER TABLE `tema`
+  ADD CONSTRAINT `FK_Tema_ClaveM` FOREIGN KEY (`ClaveM`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `tp`
+--
+ALTER TABLE `tp`
+  ADD CONSTRAINT `FK_unidad_Clave` FOREIGN KEY (`Clave`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `tr`
+--
+ALTER TABLE `tr`
+  ADD CONSTRAINT `FK_unidad_Clav` FOREIGN KEY (`Clav`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  ADD CONSTRAINT `FK_unidad_ClaveMate` FOREIGN KEY (`ClaveMate`) REFERENCES `materia` (`ClaveMateria`);
+
+--
+-- Filtros para la tabla `visitas`
+--
+ALTER TABLE `visitas`
+  ADD CONSTRAINT `FK_visitas_ClaveMat` FOREIGN KEY (`ClaveMat`) REFERENCES `materia` (`ClaveMateria`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
