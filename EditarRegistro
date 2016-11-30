@@ -1,0 +1,286 @@
+
+import editarcalendario.EditarC;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.sql.*;
+import javax.swing.*;
+import pantalla1.Bienvenido;
+//import pantalla1.Bienvenido;
+
+
+public class EditarRegistro extends JFrame {
+    private JTextField array[]=new JTextField[16], arrays[]=new JTextField[5];
+    private JLabel etq[]=new JLabel[17];
+    private String []dato=new String [20];
+    private JLabel etqx;
+    private JPanel panel, panel1, p3;
+    private JButton buscar, inicio, actualizar, editarClalendario;
+    private Connection conexion;
+    private Statement st, sentencia;
+        
+        public EditarRegistro(){
+            super("Edicion de Datos Generales");
+            setLayout(null);
+            
+           editarClalendario=new JButton("Editar Calendario");
+           editarClalendario.setBounds(400, 400, 150, 30);
+            
+           actualizar=new JButton("Actualizar");
+           actualizar.setBounds(400, 440, 150, 30);
+            
+           buscar=new JButton("Buscar");
+           buscar.setBounds(400, 480, 150, 30);
+           
+           inicio=new JButton("Inicio");
+           inicio.setBounds(400, 520, 150, 30);
+           
+            etq[0]=new JLabel("Introduzca la Clave de la Materia a Modificar: ");
+            etq[0].setBounds(50, 15, 300, 30);
+            
+            array[0]=new JTextField();
+            array[0].setBounds(310, 15, 150, 30);
+            
+            etq[1]=new JLabel("Materia: ");
+            etq[1].setBounds(50, 55, 150, 30);
+            
+            array[1]=new JTextField();
+            array[1].setBounds(110, 55, 200, 30);
+            
+            etq[2]=new JLabel("Catedratico (3): ");
+            etq[2].setBounds(50, 95, 150, 30);
+            
+            array[2]=new JTextField();
+            array[2].setBounds(120, 95, 200, 30);
+            
+            etq[3]=new JLabel("Nivel: ");
+            etq[3].setBounds(50, 135, 150, 30);
+            
+            array[3]=new JTextField();
+            array[3].setBounds(100, 135, 200, 30);
+            
+            etq[4]=new JLabel("Grupo: ");
+            etq[4].setBounds(50, 175, 150, 30);
+            
+            array[4]=new JTextField();
+            array[4].setBounds(100, 175, 200, 30);
+            
+            etq[5]=new JLabel("Periodo(2) ");
+            etq[5].setBounds(50, 210, 150, 30);
+            
+            
+            panel=new JPanel();
+            panel.setLayout(new GridLayout(2,5));
+            panel.setBounds(50, 260, 500, 55);
+            for(int i=0;i<10;i++){
+                array[5+i]=new JTextField();
+                panel.add(array[5+i]);
+            }
+            
+            etq[6]=new JLabel("Lunes: ");
+            etq[6].setBounds(60, 230, 150, 30);
+            
+            etq[7]=new JLabel("Martes: ");
+            etq[7].setBounds(160, 230, 150, 30);
+            
+            etq[8]=new JLabel("Miercoles: ");
+            etq[8].setBounds(260, 230, 150, 30);
+            
+            etq[9]=new JLabel("Jueves: ");
+            etq[9].setBounds(360, 230, 150, 30);
+            
+            etq[10]=new JLabel("Viernes: ");
+            etq[10].setBounds(460, 230, 150, 30);
+            
+        etq[11]=new JLabel("Datos Generales");
+        etq[11].setBounds(15, 350, 150, 30);
+        
+        etq[12]=new JLabel("Total Estudiantes:");
+        etq[12].setBounds(15, 380, 150, 30);
+        
+        etq[13]=new JLabel("Unidades Evaluadas a la Fecha:");
+        etq[13].setBounds(15, 410, 200, 30);
+        
+        etq[14]=new JLabel("Aprobados:");
+        etq[14].setBounds(15, 440, 200, 30);
+        
+        etq[15]=new JLabel("Reprobados:");
+        etq[15].setBounds(15, 470, 200, 30);
+        
+               
+        p3=new JPanel();
+        p3.setLayout(new GridLayout(4,1));
+        p3.setBounds(200, 380, 70, 120);
+        
+        for(int i=0;i<4;i++){
+            arrays[i]=new JTextField();
+            p3.add(arrays[i]);
+        }
+        array[15]=new JTextField();
+        array[15].setBounds(400, 175, 150, 30);
+        
+        etqx=new JLabel("Carrera:");
+        etqx.setBounds(330, 175, 60, 30);
+        
+            add(panel);
+                        
+            add(array[0]);
+            add(array[1]);
+            add(array[2]);
+            add(array[3]);
+            add(array[4]);
+            add(array[15]);
+            
+            add(etq[0]);
+            add(etq[1]);
+            add(etq[2]);
+            add(etq[3]);
+            add(etq[4]);
+            add(etq[5]);
+            add(etq[6]);
+            add(etq[7]);
+            add(etq[8]);
+            add(etq[9]);
+            add(etq[10]);
+            add(etq[11]);
+            add(etq[12]);
+            add(etq[13]);
+            add(etq[14]);
+            add(etq[15]);
+            add(etqx);
+            
+            add(buscar);
+            add(inicio);
+            add(actualizar);
+            add(editarClalendario);
+            add(p3);
+            
+            
+        buscar.addActionListener(new ActionListener(){         
+            @Override
+            public void actionPerformed(ActionEvent e) {              
+                try{
+                    
+            String consulta = "select * from dbz.Materia where ClaveMateria='"+array[0].getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               dato[0]= resultado.getString("ClaveMateria");
+                array[1].setText(dato[1] = resultado.getString("materia"));
+                array[2].setText(dato[2]  = resultado.getString("catedratico"));
+                array[3].setText(dato[3]  = resultado.getString("Nivel"));
+                array[4].setText(dato[4]  = resultado.getString("Grupo"));
+                array[5].setText(dato[5] = resultado.getString("lunesInicio"));
+                array[10].setText(dato[6] = resultado.getString("lunesFin"));
+                array[6].setText(dato[7] = resultado.getString("martesInicio"));
+                array[11].setText(dato[8] = resultado.getString("martesFin"));
+                array[7].setText(dato[9] = resultado.getString("miercolesInicio"));
+                array[12].setText(dato[10] = resultado.getString("miercolesFin"));
+                array[8].setText(dato[11] = resultado.getString("juevesInicio"));
+                array[13].setText(dato[12] = resultado.getString("juevesFin"));
+                array[9].setText(dato[13] = resultado.getString("viernesInicio"));
+                array[14].setText(dato[14] = resultado.getString("viernesFin"));
+                arrays[0].setText(dato[15] = resultado.getString("totalEstudiantes"));
+                arrays[1].setText(dato[16] = resultado.getString("UnidadesEvaluadasHastaLaFecha"));
+                arrays[2].setText(dato[17] = resultado.getString("aprobados"));
+                arrays[3].setText(dato[18] = resultado.getString("reprobados"));
+                array[15].setText(dato[19] = resultado.getString("carrera"));
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+      }
+   });
+        actualizar.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                                
+                String xy="UPDATE materia SET materia='"+array[1].getText()+
+                                          "', catedratico ='"+array[2].getText()+
+                                          "', Nivel='"+array[3].getText()+
+                                          "', Grupo='"+array[4].getText()+
+                                          "', lunesInicio='"+array[5].getText()+
+                                          "', lunesFin='"+array[10].getText()+
+                                          "', martesInicio='"+array[6].getText()+
+                                          "', martesFin='"+array[11].getText()+
+                                          "', miercolesInicio='"+array[7].getText()+
+                                          "', miercolesFin='"+array[12].getText()+
+                                          "', juevesInicio='"+array[8].getText()+
+                                          "', juevesFin='"+array[13].getText()+
+                                          "', viernesInicio='"+array[9].getText()+
+                                          "', viernesFin='"+array[14].getText()+
+                                          "', totalEstudiantes='"+arrays[0].getText()+
+                                          "', UnidadesEvaluadasHastaLaFecha='"+arrays[1].getText()+
+                                          "', aprobados='"+arrays[2].getText()+
+                                          "', reprobados='"+arrays[3].getText()+
+                                          "', carrera='"+array[15].getText()+"' WHERE ClaveMateria="+array[0].getText();
+                
+                
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xy);
+                    int confirmar=pst.executeUpdate(xy);                     
+                    int n = pst.executeUpdate(xy);
+                    
+                    
+                    
+                      
+    if(n>0){
+        
+        JOptionPane.showMessageDialog(null, "datos modificados");
+       
+    }
+   
+}catch (Exception ei){
+
+}
+                try{
+                    File f = new File("src/clave2.txt");
+                    FileWriter fw = new FileWriter(f);
+                    fw.write(array[0].getText());
+                    fw.close();
+                }catch(Exception ex){
+                        
+                        }
+                
+                  
+                }
+        
+        });
+        inicio.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                     Bienvenido jake=new Bienvenido();
+                jake.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                jake.setResizable(false);
+                jake.setSize(470, 450);
+                jake.setVisible(true);
+                dispose();
+                }
+        
+        });
+        editarClalendario.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+               EditarC x= new EditarC();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(840, 480);
+                        x.setVisible(true);
+                        dispose();
+                
+                }
+        
+        });
+        
+    }
+}
