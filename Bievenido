@@ -1,0 +1,62 @@
+import editar.EditarRegistro;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import pdf.PDFS;
+import registros.Reg;
+public class Bienvenido extends JFrame {
+    private JButton registrar, generarPDF, editar;
+        
+    public Bienvenido(){
+            super("Bienvenido al Portal de Control de Materias");
+            setLayout(null);           
+            
+            registrar=new JButton("Registrar");
+            registrar.setBounds(150, 100, 150, 30);
+            
+            generarPDF=new JButton("Generar PDF");
+            generarPDF.setBounds(150, 140, 150, 30);
+            
+            editar=new JButton("Editar");
+            editar.setBounds(150, 180, 150, 30);
+            
+            generarPDF.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                PDFS x= new PDFS();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 200);
+                        x.setVisible(true);
+                        dispose();
+                }
+            
+            });
+            
+            registrar.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        Reg x= new Reg();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+                    }
+                
+            });
+            editar.addActionListener(new ActionListener(){
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   EditarRegistro x= new EditarRegistro();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+                }
+            
+            });
+            add(registrar);
+            add(generarPDF);
+            add(editar);
+        }
+}
