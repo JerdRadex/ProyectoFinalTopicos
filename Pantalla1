@@ -1,0 +1,17 @@
+
+import javax.swing.JFrame;
+
+
+public class Pantalla1 {
+
+    public static void main(String[] args) {
+        Bienvenido jake=new Bienvenido();
+        jake.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jake.setResizable(false);
+        jake.setSize(470, 450);
+        jake.setVisible(true);
+    //delete from materia;
+    //1112
+    }
+    
+}
