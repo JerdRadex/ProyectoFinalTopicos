@@ -1,0 +1,185 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.sql.*;
+import java.util.Scanner;
+import javax.swing.*;
+import pantalla1.Bienvenido;
+import registros.Reg;
+
+public class CalendarioUnidades extends JFrame{
+    private JLabel []etq=new JLabel[12];
+    private JLabel []etq1=new JLabel[16];
+    private JTextField []array=new JTextField[80];
+    private JTextField arrays[]=new JTextField[6];
+    private JTextField arrays1[]=new JTextField[5];
+    private JTextField array1, array2, goku;
+    private JLabel captura;
+    private JPanel p1, p2, p3;
+    private JButton inicio, capturar;
+    private Connection conexion;
+    private Statement st;
+    public CalendarioUnidades(){
+        super("Calendarizacion de Unidades");
+        setLayout(null);
+        
+        inicio=new JButton("Regresar");
+        inicio.setBounds(300, 350, 100, 30);
+        
+        capturar=new JButton("Capturar");
+        capturar.setBounds(420, 350, 100, 30);
+        
+        etq[0]=new JLabel("CALENDARIZACION EVALUACIONES:");
+        etq[0].setBounds(15, 15, 800, 30);
+        
+        etq[1]=new JLabel("ED = Evaluación diagnóstica. EF = Evaluación formativa. ES = Evaluación sumativa.");
+        etq[1].setBounds(15, 50, 800, 30);
+        
+        etq[2]=new JLabel("TP=TiempoplaneadoTR=Tiemporeal EP= Evaluación programada ER= Evaluación real  FS=Fecha de seguimiento");
+        etq[2].setBounds(15, 70, 800, 30);
+        
+        etq[3]=new JLabel("Semana: ");
+        etq[3].setBounds(15, 110, 80, 30);
+        
+        etq[4]=new JLabel("Unidad: ");
+        etq[4].setBounds(15, 140, 80, 30);
+        
+        etq[5]=new JLabel("TP: ");
+        etq[5].setBounds(15, 170, 80, 30);
+        
+        etq[6]=new JLabel("TR: ");
+        etq[6].setBounds(15, 200, 80, 30);
+        
+        etq[7]=new JLabel("EP: ");
+        etq[7].setBounds(15, 230, 80, 30);
+        
+        etq[8]=new JLabel("ER: ");
+        etq[8].setBounds(15, 260, 80, 30);
+        
+        etq[9]=new JLabel("FS: ");
+        etq[9].setBounds(15, 295, 80, 30);
+        
+        etq[10]=new JLabel("Del 3 al 7 de octubre");
+        etq[10].setBounds(300, 295, 150, 30);
+        
+        etq[11]=new JLabel("Clave");
+        etq[11].setBounds(700, 110, 150, 30);
+        
+        p1=new JPanel();
+        p1.setLayout(new GridLayout(1,16));
+        p1.setBounds(75, 110, 600, 30);
+        
+        for(int i=0;i<16;i++){
+            etq1[i]=new JLabel(""+(i+1));
+            p1.add(etq1[i]);
+        }
+        
+        p2=new JPanel();
+        p2.setLayout(new GridLayout(5,16));
+        p2.setBounds(70, 140, 600, 150);
+        
+        for(int i=0;i<80;i++){
+            array[i]=new JTextField();
+            p2.add(array[i]);
+        }
+        array1=new JTextField();
+        array1.setBounds(73, 295, 200, 30);
+        
+        array2=new JTextField();
+        array2.setBounds(445, 295, 220, 30);
+        
+        p3=new JPanel();
+        p3.setLayout(new GridLayout(6,1));
+        p3.setBounds(700, 140, 100, 180);
+        
+        for(int i=0;i<6;i++){
+            arrays[i]=new JTextField();
+            p3.add(arrays[i]);
+        }
+        captura=new JLabel("Clave Materia");
+        captura.setBounds(500, 15, 100, 30);
+        String linea = "";
+        try{
+            Scanner lector = new Scanner(new FileInputStream("src/clave.txt"));
+            linea = lector.nextLine();
+        }catch(Exception ex){
+            
+        }
+        goku=new JTextField();
+        goku.setText(linea);
+        goku.setBounds(580, 15, 100, 30);
+        goku.setEditable(false);
+        
+        capturar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String xy="INSERT INTO unidad (ClaveMate, unidad, semana1, semana2, semana3, semana4, semana5, semana6, semana7, semana8, semana9, semana10, semana11, semana12, semana13, semana14, semana15, semana16)"+"VALUES('"+goku.getText()+"', '"+arrays[0].getText()+"' ,'"+array[0].getText()+"', '"+array[1].getText()+"', '"+array[2].getText()+"', '"+array[3].getText()+"', '"+array[4].getText()+"', '"+array[5].getText()+"', '"+array[6].getText()+"', '"+array[7].getText()+"', '"+array[8].getText()+"', '"+array[9].getText()+"', '"+array[10].getText()+"', '"+array[11].getText()+"', '"+array[12].getText()+"', '"+array[13].getText()+"', '"+array[14].getText()+"', '"+array[15].getText()+"')";
+                String xz="INSERT INTO tp (Clave, TP, semana1, semana2, semana3, semana4, semana5, semana6, semana7, semana8, semana9, semana10, semana11, semana12, semana13, semana14, semana15, semana16)"+"VALUES('"+goku.getText()+"', '"+arrays[1].getText()+"' ,'"+array[16].getText()+"', '"+array[17].getText()+"', '"+array[18].getText()+"', '"+array[19].getText()+"', '"+array[20].getText()+"', '"+array[21].getText()+"', '"+array[22].getText()+"', '"+array[23].getText()+"', '"+array[24].getText()+"', '"+array[25].getText()+"', '"+array[26].getText()+"', '"+array[27].getText()+"', '"+array[28].getText()+"', '"+array[29].getText()+"', '"+array[30].getText()+"', '"+array[31].getText()+"')";
+                String xa="INSERT INTO tr (Clav, tr, semana1, semana2, semana3, semana4, semana5, semana6, semana7, semana8, semana9, semana10, semana11, semana12, semana13, semana14, semana15, semana16)"+"VALUES('"+goku.getText()+"', '"+arrays[2].getText()+"' ,'"+array[32].getText()+"', '"+array[33].getText()+"', '"+array[34].getText()+"', '"+array[35].getText()+"', '"+array[36].getText()+"', '"+array[37].getText()+"', '"+array[38].getText()+"', '"+array[39].getText()+"', '"+array[40].getText()+"', '"+array[41].getText()+"', '"+array[42].getText()+"', '"+array[43].getText()+"', '"+array[44].getText()+"', '"+array[45].getText()+"', '"+array[46].getText()+"', '"+array[47].getText()+"')";
+                String xe="INSERT INTO ep (C, ep, semana1, semana2, semana3, semana4, semana5, semana6, semana7, semana8, semana9, semana10, semana11, semana12, semana13, semana14, semana15, semana16)"+"VALUES('"+goku.getText()+"', '"+arrays[3].getText()+"' ,'"+array[48].getText()+"', '"+array[49].getText()+"', '"+array[50].getText()+"', '"+array[51].getText()+"', '"+array[52].getText()+"', '"+array[53].getText()+"', '"+array[54].getText()+"', '"+array[55].getText()+"', '"+array[56].getText()+"', '"+array[57].getText()+"', '"+array[58].getText()+"', '"+array[59].getText()+"', '"+array[60].getText()+"', '"+array[61].getText()+"', '"+array[62].getText()+"', '"+array[63].getText()+"')";
+                String xi="INSERT INTO er (Cl, er, semana1, semana2, semana3, semana4, semana5, semana6, semana7, semana8, semana9, semana10, semana11, semana12, semana13, semana14, semana15, semana16)"+"VALUES('"+goku.getText()+"', '"+arrays[4].getText()+"' ,'"+array[64].getText()+"', '"+array[65].getText()+"', '"+array[66].getText()+"', '"+array[67].getText()+"', '"+array[68].getText()+"', '"+array[69].getText()+"', '"+array[70].getText()+"', '"+array[71].getText()+"', '"+array[72].getText()+"', '"+array[73].getText()+"', '"+array[74].getText()+"', '"+array[75].getText()+"', '"+array[76].getText()+"', '"+array[77].getText()+"', '"+array[78].getText()+"', '"+array[79].getText()+"')";
+                String xo="INSERT INTO fs (Cla, er, semana1ala5, semana10ala16)"+"VALUES('"+goku.getText()+"', '"+arrays[5].getText()+"' ,'"+array1.getText()+"', '"+array2.getText()+"')";
+                
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    st= conexion.createStatement();                   
+                    st.executeUpdate(xy);
+                    st.executeUpdate(xz);
+                    st.executeUpdate(xa);
+                    st.executeUpdate(xe);
+                    st.executeUpdate(xi);
+                    st.executeUpdate(xo);
+                }catch(Exception el){
+                    System.err.println("Falló la conexión " + el.getMessage());
+                    System.exit(0);
+                }
+                for(int j=0;j<80;j++){
+                array[j].setText("");
+                }
+                for(int i=0;i<6; i++){
+                    arrays[i].setText("");
+                }
+                array1.setText("");
+                array2.setText("");
+            }
+        });
+        inicio.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                        Reg x= new Reg();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+            }
+        
+        });
+       // add(captura);
+        add(etq[0]);
+        add(etq[1]);
+        add(etq[2]);
+        add(etq[3]);
+        add(etq[4]);
+        add(etq[5]);
+        add(etq[6]);
+        add(etq[7]);
+        add(etq[8]);
+        add(etq[9]);
+        add(etq[10]);
+        add(etq[11]);
+        add(goku);
+        add(p1);
+        add(p2);
+        add(p3);
+        add(captura);
+        
+        add(array1);
+        add(array2);
+        
+        add(inicio);
+        add(capturar);        
+    }
+}
