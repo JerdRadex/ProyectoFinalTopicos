@@ -1,0 +1,118 @@
+
+import calendario.CalendarioUnidades;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Scanner;
+import javax.swing.*;
+import registros.Reg;
+
+public class visita extends JFrame {
+    private JTextField array[]=new JTextField[4];
+    private JLabel etq[]=new JLabel[5];
+    private JButton siguiente, capturar;
+    private Connection conexion;
+    private Statement st, sentencia;
+    private JTextField goku;
+    private JLabel captura;
+    public visita(){
+        super("Control de Visitas");
+        setLayout(null);
+            siguiente=new JButton("Regresar");
+            siguiente.setBounds(750, 130, 100, 30);
+            
+            capturar=new JButton("Capturar");
+            capturar.setBounds(640, 130, 100, 30);
+        
+            etq[0]=new JLabel("Nombre de la empresa (13):");
+            etq[0].setBounds(15, 50, 170, 30);
+            
+            array[0]=new JTextField();
+            array[0].setBounds(15, 85, 280, 30);
+            
+            etq[1]=new JLabel("Unidad tematica en la que impacta:");
+            etq[1].setBounds(300, 50, 280, 30);
+            
+            array[1]=new JTextField();
+            array[1].setBounds(300, 85, 280, 30);
+            
+            etq[2]=new JLabel("Programada:");
+            etq[2].setBounds(590, 50, 200, 30);
+            
+            array[2]=new JTextField();
+            array[2].setBounds(585, 85, 150, 30);
+            
+            etq[3]=new JLabel("Realizada:");
+            etq[3].setBounds(740, 50, 280, 30);
+            
+            array[3]=new JTextField();
+            array[3].setBounds(740, 85, 150, 30);
+            
+            etq[4]=new JLabel("Fecha");
+            etq[4].setBounds(590, 25, 280, 30);
+            
+            captura=new JLabel("Clave Materia");
+            captura.setBounds(15, 15, 100, 30);
+            String linea = "";
+        try{
+            Scanner lector = new Scanner(new FileInputStream("src/clave.txt"));
+            linea = lector.nextLine();
+        }catch(Exception ex){
+            
+        }
+            goku=new JTextField();
+            goku.setText(linea);
+            goku.setBounds(110, 15, 100, 30);
+            goku.setEditable(false);
+            
+            capturar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String xy="INSERT INTO visitas (nombreEmpresa, unidadTematicaRegistrada, ClaveMat,  fechaProgramada, fechaRealizada )"+"VALUES('"+array[0].getText()+"' ,'"+array[1].getText()+"', '"+goku.getText()+"', '"+array[2].getText()+"', '"+array[3].getText()+"')";
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    st= conexion.createStatement();
+                    st.executeUpdate(xy);
+                }catch(Exception el){
+                    System.err.println("Falló la conexión " + el.getMessage());
+                    System.exit(0);
+                }
+                for(int j=0;j<4;j++){
+                array[j].setText("");
+                }
+            }
+            
+            });
+            siguiente.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Reg x= new Reg();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+            }
+            
+            });
+            add(array[0]);
+            add(array[1]);
+            add(array[2]);
+            add(array[3]);
+            add(goku);
+            add(captura);
+                        
+            add(etq[0]);
+            add(etq[1]);
+            add(etq[2]);
+            add(etq[3]);
+            add(etq[4]);
+            
+            add(siguiente);
+            add(capturar);
+    }
+}
