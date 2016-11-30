@@ -1,0 +1,556 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package editarcalendario;
+import editar.EditarRegistro;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.sql.*;
+import java.util.Scanner;
+import javax.swing.*;
+//import pantalla1.Bienvenido;
+//import registros.Reg;
+
+public class EditarC extends JFrame{
+    private JLabel []etq=new JLabel[12];
+    private JLabel []etq1=new JLabel[16];
+    private JTextField []array=new JTextField[80];
+    private JTextField arrays[]=new JTextField[6];
+    private JTextField arrays1[]=new JTextField[5];
+    private String dato[]=new String[18];
+    private String datos[]=new String[18];
+    private String datos1[]=new String[18];
+    private String datos2[]=new String[18];
+    private String datos3[]=new String[18];
+    private String datos4[]=new String[4];
+    private JTextField array1, array2, goku;
+    private JLabel captura;
+    private JPanel p1, p2, p3;
+    private JButton inicio, capturar, actualizar;
+    private Connection conexion;
+    private Statement st;
+    
+    public EditarC(){
+    super("Calendarizacion de Unidades");
+        setLayout(null);
+        
+        inicio=new JButton("Regresar");
+        inicio.setBounds(300, 350, 100, 30);
+        
+        capturar=new JButton("Buscar");
+        capturar.setBounds(420, 350, 100, 30);
+        
+        actualizar=new JButton("Actualizar");
+        actualizar.setBounds(180, 350, 100, 30);
+        
+        etq[0]=new JLabel("CALENDARIZACION EVALUACIONES:");
+        etq[0].setBounds(15, 15, 800, 30);
+        
+        etq[1]=new JLabel("ED = Evaluación diagnóstica. EF = Evaluación formativa. ES = Evaluación sumativa.");
+        etq[1].setBounds(15, 50, 800, 30);
+        
+        etq[2]=new JLabel("TP=TiempoplaneadoTR=Tiemporeal EP= Evaluación programada ER= Evaluación real  FS=Fecha de seguimiento");
+        etq[2].setBounds(15, 70, 800, 30);
+        
+        etq[3]=new JLabel("Semana: ");
+        etq[3].setBounds(15, 110, 80, 30);
+        
+        etq[4]=new JLabel("Unidad: ");
+        etq[4].setBounds(15, 140, 80, 30);
+        
+        etq[5]=new JLabel("TP: ");
+        etq[5].setBounds(15, 170, 80, 30);
+        
+        etq[6]=new JLabel("TR: ");
+        etq[6].setBounds(15, 200, 80, 30);
+        
+        etq[7]=new JLabel("EP: ");
+        etq[7].setBounds(15, 230, 80, 30);
+        
+        etq[8]=new JLabel("ER: ");
+        etq[8].setBounds(15, 260, 80, 30);
+        
+        etq[9]=new JLabel("FS: ");
+        etq[9].setBounds(15, 295, 80, 30);
+        
+        etq[10]=new JLabel("Del 3 al 7 de octubre");
+        etq[10].setBounds(300, 295, 150, 30);
+        
+        etq[11]=new JLabel("Clave");
+        etq[11].setBounds(700, 110, 150, 30);
+        
+        p1=new JPanel();
+        p1.setLayout(new GridLayout(1,16));
+        p1.setBounds(75, 110, 600, 30);
+        
+        for(int i=0;i<16;i++){
+            etq1[i]=new JLabel(""+(i+1));
+            p1.add(etq1[i]);
+        }
+        
+        p2=new JPanel();
+        p2.setLayout(new GridLayout(5,16));
+        p2.setBounds(70, 140, 600, 150);
+        
+        for(int i=0;i<80;i++){
+            array[i]=new JTextField();
+            p2.add(array[i]);
+        }
+        array1=new JTextField();
+        array1.setBounds(73, 295, 200, 30);
+        
+        array2=new JTextField();
+        array2.setBounds(445, 295, 220, 30);
+        
+        p3=new JPanel();
+        p3.setLayout(new GridLayout(6,1));
+        p3.setBounds(700, 140, 100, 180);
+        
+        for(int i=0;i<6;i++){
+            arrays[i]=new JTextField();
+            p3.add(arrays[i]);
+        }
+        captura=new JLabel("Clave Materia");
+        captura.setBounds(500, 15, 100, 30);
+        String linea = "";
+        try{
+            Scanner lector = new Scanner(new FileInputStream("src/clave2.txt"));
+            linea = lector.nextLine();
+        }catch(Exception ex){
+            
+        }
+                
+        goku=new JTextField();
+        goku.setText(linea);
+        goku.setBounds(580, 15, 100, 30);
+        goku.setEditable(false);
+        
+        capturar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    
+            String consulta = "select * from dbz.unidad where ClaveMate='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               dato[0]= resultado.getString("ClaveMate");
+                arrays[0].setText(dato[1] = resultado.getString("unidad"));
+                array[0].setText(dato[2]  = resultado.getString("semana1"));
+                array[1].setText(dato[3]  = resultado.getString("semana2"));
+                array[2].setText(dato[4]  = resultado.getString("semana3"));
+                array[3].setText(dato[5] = resultado.getString("semana4"));
+                array[4].setText(dato[6] = resultado.getString("semana5"));
+                array[5].setText(dato[7] = resultado.getString("semana6"));
+                array[6].setText(dato[8] = resultado.getString("semana7"));
+                array[7].setText(dato[9] = resultado.getString("semana8"));
+                array[8].setText(dato[10] = resultado.getString("semana9"));
+                array[9].setText(dato[11] = resultado.getString("semana10"));
+                array[10].setText(dato[12] = resultado.getString("semana11"));
+                array[11].setText(dato[13] = resultado.getString("semana12"));
+                array[12].setText(dato[14] = resultado.getString("semana13"));
+                array[13].setText(dato[15] = resultado.getString("semana14"));
+                array[14].setText(dato[16] = resultado.getString("semana15"));
+                array[15].setText(dato[17] = resultado.getString("semana16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                try{
+                    
+            String consulta = "select * from dbz.tp where Clave='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               datos[0]= resultado.getString("Clave");
+                arrays[1].setText(datos[1] = resultado.getString("TP"));
+                array[16].setText(datos[2]  = resultado.getString("semana1"));
+                array[17].setText(datos[3]  = resultado.getString("semana2"));
+                array[18].setText(datos[4]  = resultado.getString("semana3"));
+                array[19].setText(datos[5] = resultado.getString("semana4"));
+                array[20].setText(datos[6] = resultado.getString("semana5"));
+                array[21].setText(datos[7] = resultado.getString("semana6"));
+                array[22].setText(datos[8] = resultado.getString("semana7"));
+                array[23].setText(datos[9] = resultado.getString("semana8"));
+                array[24].setText(datos[10] = resultado.getString("semana9"));
+                array[25].setText(datos[11] = resultado.getString("semana10"));
+                array[26].setText(datos[12] = resultado.getString("semana11"));
+                array[27].setText(datos[13] = resultado.getString("semana12"));
+                array[28].setText(datos[14] = resultado.getString("semana13"));
+                array[29].setText(datos[15] = resultado.getString("semana14"));
+                array[30].setText(datos[16] = resultado.getString("semana15"));
+                array[31].setText(datos[17] = resultado.getString("semana16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                try{
+                    
+            String consulta = "select * from dbz.tr where Clav='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               datos1[0]= resultado.getString("Clav");
+                arrays[2].setText(datos1[1] = resultado.getString("TR"));
+                array[32].setText(datos1[2]  = resultado.getString("semana1"));
+                array[33].setText(datos1[3]  = resultado.getString("semana2"));
+                array[34].setText(datos1[4]  = resultado.getString("semana3"));
+                array[35].setText(datos1[5] = resultado.getString("semana4"));
+                array[36].setText(datos1[6] = resultado.getString("semana5"));
+                array[37].setText(datos1[7] = resultado.getString("semana6"));
+                array[38].setText(datos1[8] = resultado.getString("semana7"));
+                array[39].setText(datos1[9] = resultado.getString("semana8"));
+                array[40].setText(datos1[10] = resultado.getString("semana9"));
+                array[41].setText(datos1[11] = resultado.getString("semana10"));
+                array[42].setText(datos1[12] = resultado.getString("semana11"));
+                array[43].setText(datos1[13] = resultado.getString("semana12"));
+                array[44].setText(datos1[14] = resultado.getString("semana13"));
+                array[45].setText(datos1[15] = resultado.getString("semana14"));
+                array[46].setText(datos1[16] = resultado.getString("semana15"));
+                array[47].setText(datos1[17] = resultado.getString("semana16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                 try{
+                    
+            String consulta = "select * from dbz.ep where C='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               datos2[0]= resultado.getString("C");
+                arrays[3].setText(datos2[1] = resultado.getString("EP"));
+                array[48].setText(datos2[2]  = resultado.getString("semana1"));
+                array[49].setText(datos2[3]  = resultado.getString("semana2"));
+                array[50].setText(datos2[4]  = resultado.getString("semana3"));
+                array[51].setText(datos2[5] = resultado.getString("semana4"));
+                array[52].setText(datos2[6] = resultado.getString("semana5"));
+                array[53].setText(datos2[7] = resultado.getString("semana6"));
+                array[54].setText(datos2[8] = resultado.getString("semana7"));
+                array[55].setText(datos2[9] = resultado.getString("semana8"));
+                array[56].setText(datos2[10] = resultado.getString("semana9"));
+                array[57].setText(datos2[11] = resultado.getString("semana10"));
+                array[58].setText(datos2[12] = resultado.getString("semana11"));
+                array[59].setText(datos2[13] = resultado.getString("semana12"));
+                array[60].setText(datos2[14] = resultado.getString("semana13"));
+                array[61].setText(datos2[15] = resultado.getString("semana14"));
+                array[62].setText(datos2[16] = resultado.getString("semana15"));
+                array[63].setText(datos2[17] = resultado.getString("semana16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                 try{
+                    
+            String consulta = "select * from dbz.er where Cl='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               datos3[0]= resultado.getString("Cl");
+                arrays[4].setText(datos3[1] = resultado.getString("ER"));
+                array[64].setText(datos3[2]  = resultado.getString("semana1"));
+                array[65].setText(datos3[3]  = resultado.getString("semana2"));
+                array[66].setText(datos3[4]  = resultado.getString("semana3"));
+                array[67].setText(datos3[5] = resultado.getString("semana4"));
+                array[68].setText(datos3[6] = resultado.getString("semana5"));
+                array[69].setText(datos3[7] = resultado.getString("semana6"));
+                array[70].setText(datos3[8] = resultado.getString("semana7"));
+                array[71].setText(datos3[9] = resultado.getString("semana8"));
+                array[72].setText(datos3[10] = resultado.getString("semana9"));
+                array[73].setText(datos3[11] = resultado.getString("semana10"));
+                array[74].setText(datos3[12] = resultado.getString("semana11"));
+                array[75].setText(datos3[13] = resultado.getString("semana12"));
+                array[76].setText(datos3[14] = resultado.getString("semana13"));
+                array[77].setText(datos3[15] = resultado.getString("semana14"));
+                array[78].setText(datos3[16] = resultado.getString("semana15"));
+                array[79].setText(datos3[17] = resultado.getString("semana16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                  try{
+                    
+            String consulta = "select * from dbz.fs where Cla='"+goku.getText()+"'";
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+            Statement sentencia = conexion.createStatement();
+            ResultSet resultado;
+            resultado = sentencia.executeQuery(consulta);
+            
+            while(resultado.next()){
+                
+               datos4[0]= resultado.getString("Cla");
+                arrays[5].setText(datos4[1] = resultado.getString("ER"));
+                array1.setText(datos4[2]  = resultado.getString("semana1ala5"));
+                array2.setText(datos4[3]  = resultado.getString("semana10ala16"));
+                
+            }
+          }catch(Exception el){
+            System.err.println("Problemas con la bd " + el.getMessage());
+        }
+                
+                
+            }
+        });
+        actualizar.addActionListener(new ActionListener(){
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                                
+                String xy="UPDATE unidad SET unidad='"+arrays[0].getText()+
+                                          "', semana1='"+array[0].getText()+
+                                          "', semana2='"+array[1].getText()+
+                                          "', semana3='"+array[2].getText()+
+                                          "', semana4='"+array[3].getText()+
+                                          "', semana5='"+array[4].getText()+
+                                          "', semana6='"+array[5].getText()+
+                                          "', semana7='"+array[6].getText()+
+                                          "', semana8='"+array[7].getText()+
+                                          "', semana9='"+array[8].getText()+
+                                          "', semana10='"+array[9].getText()+
+                                          "', semana11='"+array[10].getText()+
+                                          "', semana12='"+array[11].getText()+
+                                          "', semana13='"+array[12].getText()+
+                                          "', semana14='"+array[13].getText()+
+                                          "', semana15='"+array[14].getText()+
+                                          "', semana16='"+array[15].getText()+
+                                          "' WHERE ClaveMate="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xy);
+                    int confirmar=pst.executeUpdate(xy);
+                    
+                       
+                    
+            int n = pst.executeUpdate(xy);
+            
+   
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}
+                
+                
+                String xz="UPDATE tp SET TP='"+arrays[1].getText()+
+                                          "', semana1='"+array[16].getText()+
+                                          "', semana2='"+array[17].getText()+
+                                          "', semana3='"+array[18].getText()+
+                                          "', semana4='"+array[19].getText()+
+                                          "', semana5='"+array[20].getText()+
+                                          "', semana6='"+array[21].getText()+
+                                          "', semana7='"+array[22].getText()+
+                                          "', semana8='"+array[23].getText()+
+                                          "', semana9='"+array[24].getText()+
+                                          "', semana10='"+array[25].getText()+
+                                          "', semana11='"+array[26].getText()+
+                                          "', semana12='"+array[27].getText()+
+                                          "', semana13='"+array[28].getText()+
+                                          "', semana14='"+array[29].getText()+
+                                          "', semana15='"+array[30].getText()+
+                                          "', semana16='"+array[31].getText()+
+                                          "' WHERE Clave="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xy);
+                    int confirmar=pst.executeUpdate(xz);
+                    
+                       
+            int n = pst.executeUpdate(xz);
+            
+   
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}
+                
+                
+                String xx="UPDATE tr SET TR='"+arrays[2].getText()+
+                                          "', semana1='"+array[32].getText()+
+                                          "', semana2='"+array[33].getText()+
+                                          "', semana3='"+array[34].getText()+
+                                          "', semana4='"+array[35].getText()+
+                                          "', semana5='"+array[36].getText()+
+                                          "', semana6='"+array[37].getText()+
+                                          "', semana7='"+array[38].getText()+
+                                          "', semana8='"+array[39].getText()+
+                                          "', semana9='"+array[40].getText()+
+                                          "', semana10='"+array[41].getText()+
+                                          "', semana11='"+array[42].getText()+
+                                          "', semana12='"+array[43].getText()+
+                                          "', semana13='"+array[44].getText()+
+                                          "', semana14='"+array[45].getText()+
+                                          "', semana15='"+array[46].getText()+
+                                          "', semana16='"+array[47].getText()+
+                                          "' WHERE Clav="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xx);
+                    int confirmar=pst.executeUpdate(xx);
+                    
+                       
+            int n = pst.executeUpdate(xx);
+            
+   
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}       
+                
+                
+                String xxx="UPDATE ep SET EP='"+arrays[3].getText()+
+                                          "', semana1='"+array[48].getText()+
+                                          "', semana2='"+array[49].getText()+
+                                          "', semana3='"+array[50].getText()+
+                                          "', semana4='"+array[51].getText()+
+                                          "', semana5='"+array[52].getText()+
+                                          "', semana6='"+array[53].getText()+
+                                          "', semana7='"+array[54].getText()+
+                                          "', semana8='"+array[55].getText()+
+                                          "', semana9='"+array[56].getText()+
+                                          "', semana10='"+array[57].getText()+
+                                          "', semana11='"+array[58].getText()+
+                                          "', semana12='"+array[59].getText()+
+                                          "', semana13='"+array[60].getText()+
+                                          "', semana14='"+array[61].getText()+
+                                          "', semana15='"+array[62].getText()+
+                                          "', semana16='"+array[63].getText()+
+                                          "' WHERE C="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xxx);
+                    int confirmar=pst.executeUpdate(xxx);
+                    
+                       
+            int n = pst.executeUpdate(xxx);
+   
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}       
+                
+                String xxxm="UPDATE er SET ER='"+arrays[4].getText()+
+                                          "', semana1='"+array[64].getText()+
+                                          "', semana2='"+array[65].getText()+
+                                          "', semana3='"+array[66].getText()+
+                                          "', semana4='"+array[67].getText()+
+                                          "', semana5='"+array[68].getText()+
+                                          "', semana6='"+array[69].getText()+
+                                          "', semana7='"+array[70].getText()+
+                                          "', semana8='"+array[71].getText()+
+                                          "', semana9='"+array[72].getText()+
+                                          "', semana10='"+array[73].getText()+
+                                          "', semana11='"+array[74].getText()+
+                                          "', semana12='"+array[75].getText()+
+                                          "', semana13='"+array[76].getText()+
+                                          "', semana14='"+array[77].getText()+
+                                          "', semana15='"+array[78].getText()+
+                                          "', semana16='"+array[79].getText()+
+                                          "' WHERE Cl="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xxxm);
+                    int confirmar=pst.executeUpdate(xxxm);
+                    
+                       
+            int n = pst.executeUpdate(xxxm);
+   if(n>0){
+        
+        JOptionPane.showMessageDialog(null, "datos modificados");
+       
+    }
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}       
+                
+                String xxxmu="UPDATE fs SET ER='"+arrays[5].getText()+
+                                          "', semana1ala5='"+array1.getText()+
+                                          "', semana10ala16='"+array2.getText()+
+                                          "' WHERE Cla="+goku.getText();
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    PreparedStatement pst = conexion.prepareStatement(xxxmu);
+                    int confirmar=pst.executeUpdate(xxxmu);
+                    
+}catch (Exception ei){
+    //JOptionPane.showMessageDialog(null, "error"+ ei.getMessage());
+}
+        }
+        
+        });
+        
+        inicio.addActionListener(new ActionListener(){
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            EditarRegistro x= new EditarRegistro();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+        }
+        
+        });
+        
+       // add(captura);
+        add(etq[0]);
+        add(etq[1]);
+        add(etq[2]);
+        add(etq[3]);
+        add(etq[4]);
+        add(etq[5]);
+        add(etq[6]);
+        add(etq[7]);
+        add(etq[8]);
+        add(etq[9]);
+        add(etq[10]);
+        add(etq[11]);
+        add(goku);
+        add(p1);
+        add(p2);
+        add(p3);
+        add(captura);
+        
+        add(array1);
+        add(array2);
+        
+        add(inicio);
+        add(capturar);
+        add(actualizar);
+    } 
+}
