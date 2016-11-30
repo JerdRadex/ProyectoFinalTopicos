@@ -1,0 +1,122 @@
+
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.util.Scanner;
+import javax.swing.*;
+import registros.Reg;
+import visitas.visita;
+public class TerceraTabla extends JFrame {
+        private JTextField goku;
+        private JLabel captura;
+        private JLabel []etq=new JLabel[5];
+        private JTextField[]array=new JTextField[4];
+        private JButton capturar, siguiente;
+        private java.sql.Connection conexion;
+        private Statement st, sentencia;
+        
+    public TerceraTabla(){
+        super("Control de Practicas");
+        setLayout(null);
+        
+        capturar=new JButton("Capturar");
+        capturar.setBounds(450, 120, 100, 30);
+        
+        siguiente=new JButton("Regresar");
+        siguiente.setBounds(560, 120, 100, 30);
+        
+        etq[0]=new JLabel("Nombre de la Practica:");
+        etq[0].setBounds(25, 50, 200, 30);
+        
+        array[0]=new JTextField();
+        array[0].setBounds(25, 80, 300, 30);
+        
+        etq[1]=new JLabel("Unidad:");
+        etq[1].setBounds(340, 50, 100, 30);
+        
+        array[1]=new JTextField();
+        array[1].setBounds(330, 80, 100, 30);
+        
+        etq[2]=new JLabel("Programada:");
+        etq[2].setBounds(440, 50, 100, 30);
+        
+        array[2]=new JTextField();
+        array[2].setBounds(435, 80, 130, 30);
+        
+        etq[3]=new JLabel("Realizada:");
+        etq[3].setBounds(580, 50, 100, 30);
+        
+        array[3]=new JTextField();
+        array[3].setBounds(570, 80, 130, 30);
+        
+        etq[4]=new JLabel("Fecha");
+        etq[4].setBounds(440, 25, 100, 30);
+        
+        captura=new JLabel("Clave Materia: ");
+        captura.setBounds(15, 15, 100, 30);
+        
+        String linea = "";
+        try{
+            Scanner lector = new Scanner(new FileInputStream("src/clave.txt"));
+            linea = lector.nextLine();
+        }catch(Exception ex){
+            
+        }
+        
+        goku=new JTextField();
+        goku.setText(linea);
+        goku.setBounds(110, 15, 100, 30);
+        goku.setEditable(false);
+        
+        add(etq[0]);
+        add(etq[1]);
+        add(etq[2]);
+        add(etq[3]);
+        add(etq[4]);
+        add(goku);
+        
+        add(captura);
+        add(array[0]);
+        add(array[1]);
+        add(array[2]);
+        add(array[3]);
+        
+        add(capturar);
+        add(siguiente);
+        
+        capturar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String xy="INSERT INTO practica ( nombrePractica, ClaveMa, unidad, fechaProgramada, fechaRegistrada)"+"VALUES('"+array[0].getText()+"', '"+goku.getText()+"' ,'"+array[1].getText()+"', '"+array[2].getText()+"', '"+array[3].getText()+"')";
+                
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    st= conexion.createStatement();
+                    st.executeUpdate(xy); 
+                }catch(Exception el){
+                    System.err.println("Falló la conexión " + el.getMessage());
+                    System.exit(0);
+                }
+                for(int j=0;j<4;j++){
+                array[j].setText("");
+                }
+            }       
+        });
+        siguiente.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Reg x= new Reg();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+            }
+        
+        });
+    }
+}
