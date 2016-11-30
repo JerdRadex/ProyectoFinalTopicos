@@ -1,0 +1,181 @@
+
+import java.awt.event.*;
+import java.io.FileInputStream;
+import java.sql.*;
+import java.util.Scanner;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import registros.Reg;
+import ter.TerceraTabla;
+
+public class segundaTabla extends JFrame{
+    private JTextField array[]=new JTextField[11];
+    private JLabel []etq=new JLabel[13];
+    private JButton capturar, siguiente;
+    private Connection conexion;
+    private Statement st, sentencia;
+    private JTextField goku;
+    private JLabel captura;
+    private JTable table;
+    private DefaultTableModel modelo;
+    private String victor;
+    
+    
+    public segundaTabla(){
+        super("Temas");
+        setLayout(null);
+        
+        capturar=new JButton("Capturar");
+        capturar.setBounds(700, 170, 100, 30);
+        
+        siguiente=new JButton("Regresar");
+        siguiente.setBounds(820, 170, 100, 30);
+
+        etq[1]=new JLabel("Temas y subtemas a desarrollar");
+        etq[1].setBounds(15, 95, 300, 30);
+        
+        array[1]=new JTextField();
+        array[1].setBounds(15, 120, 300, 30);
+        
+        etq[2]=new JLabel("Programado");
+        etq[2].setBounds(320, 65, 300, 30);
+        
+        etq[3]=new JLabel("Hrs: ");
+        etq[3].setBounds(320, 85, 300, 30);
+        
+        array[2]=new JTextField();
+        array[2].setBounds(320, 120, 50, 30);
+        
+        etq[4]=new JLabel("Inicio: ");
+        etq[4].setBounds(380, 85, 50, 30);
+        
+        array[3]=new JTextField();
+        array[3].setBounds(375, 120, 50, 30);
+        
+        etq[5]=new JLabel("Fin: ");
+        etq[5].setBounds(435, 85, 50, 30);
+        
+        array[4]=new JTextField();
+        array[4].setBounds(430, 120, 50, 30);
+        
+        etq[6]=new JLabel("Avance: ");
+        etq[6].setBounds(485, 85, 50, 30);
+        
+        array[5]=new JTextField();
+        array[5].setBounds(485, 120, 50, 30);
+        
+        etq[7]=new JLabel("Real");
+        etq[7].setBounds(550, 65, 300, 30);
+        
+        etq[8]=new JLabel("Hrs: ");
+        etq[8].setBounds(545, 85, 50, 30);
+        
+        array[6]=new JTextField();
+        array[6].setBounds(540, 120, 50, 30);
+        
+        etq[9]=new JLabel("Inicio: ");
+        etq[9].setBounds(595, 85, 50, 30);
+        
+        array[7]=new JTextField();
+        array[7].setBounds(595, 120, 50, 30);
+        
+        etq[10]=new JLabel("Fin: ");
+        etq[10].setBounds(655, 85, 50, 30);
+        
+        array[8]=new JTextField();
+        array[8].setBounds(650, 120, 50, 30);
+        
+        etq[11]=new JLabel("Avance: ");
+        etq[11].setBounds(705, 85, 50, 30);
+        
+        array[9]=new JTextField();
+        array[9].setBounds(705, 120, 50, 30);
+        
+        etq[12]=new JLabel("Fecha y Firma de seguimiento: ");
+        etq[12].setBounds(770, 85, 300, 30);
+        
+        array[10]=new JTextField();
+        array[10].setBounds(760, 120, 200, 30);
+
+        capturar.addActionListener(new ActionListener(){
+            @Override
+            
+            public void actionPerformed(ActionEvent e) {
+                                
+                String xy="INSERT INTO Tema (nombreTema, ClaveM, hrsProgramadas, inicioProgramado, finProgramado, avanceProgramado, hrsReales, inicioReal, finReal, avanceReal, fecha )"+"VALUES('"+array[1].getText()+"' ,'"+goku.getText()+"', '"+array[2].getText()+"', '"+array[3].getText()+"', '"+array[4].getText()+"', '"+array[5].getText()+"', '"+array[6].getText()+"', '"+array[7].getText()+"', '"+array[8].getText()+"', '"+array[9].getText()+"', '"+array[10].getText()+"')";
+                
+                try{
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/dbz", "root", "");
+                    st= conexion.createStatement();
+                    st.executeUpdate(xy); 
+                }catch(Exception el){
+                    System.err.println("Falló la conexión " + el.getMessage());
+                    System.exit(0);
+                }
+                for(int j=1;j<11;j++){
+                array[j].setText("");
+                }
+            }
+        });
+        siguiente.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Reg x= new Reg();
+                        x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        x.setSize(600, 600);
+                        x.setVisible(true);
+                        dispose();
+            }
+        });
+        captura=new JLabel("ClaveMateria");
+        captura.setBounds(15, 15, 100, 30);
+        
+        String linea = "";
+        try{
+            Scanner lector = new Scanner(new FileInputStream("src/clave.txt"));
+            linea = lector.nextLine();
+        }catch(Exception ex){
+            
+        }
+                
+        goku=new JTextField();
+        goku.setText(linea);
+        goku.setBounds(120, 15, 100, 30);
+        goku.setEditable(false);
+        
+        add(etq[1]);
+        add(etq[2]);
+        add(etq[3]);
+        add(etq[4]);
+        add(etq[5]);
+        add(etq[6]);
+        add(etq[7]);
+        add(etq[8]);
+        add(etq[9]);
+        add(etq[10]);
+        add(etq[11]);
+        add(etq[12]);
+        add(captura);
+        
+        
+        add(array[1]);
+        add(array[2]);
+        add(array[3]);
+        add(array[4]);
+        add(array[5]);
+        add(array[6]);
+        add(array[7]);
+        add(array[8]);
+        add(array[9]);
+        add(array[10]);
+        add(goku);
+        
+        add(capturar);
+        add(siguiente);      
+        
+        
+    }
+    
+
+}
